@@ -18,17 +18,14 @@ public class HomeWork {
     public void stepDanceValue(InputStream in, OutputStream out) {
         BufferedReader br = new BufferedReader(new InputStreamReader(in));
         String[] firstLine = br.readLine().split(" ");
-        AVLTree tree = new AVLTree();
+
         int n = Integer.parseInt(firstLine[0]);
         int q = Integer.parseInt(firstLine[1]);
 
-        for (int i = 1; i < n + 1; i++) {
-            tree.add(i);
-        }
+        SegmentTree tree = new SegmentTree(n);
         for (int i = 0; i < q; i++) {
             int x = Integer.parseInt(br.readLine());
-            tree.update(x);
-            out.write(String.valueOf(tree.getMaxLength()).getBytes());
+            out.write(String.valueOf(tree.update(x)).getBytes());
             if (i < q - 1) {
                 out.write("\n".getBytes());
             }
