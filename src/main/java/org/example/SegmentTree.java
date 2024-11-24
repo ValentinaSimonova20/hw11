@@ -19,8 +19,8 @@ public class SegmentTree {
             this.endInterval = endInterval;
             this.firstLetter = "L";
             this.lastLetter = "L";
-            this.lengthLongestSuffix = 0;
-            this.lengthLongestPrefix = 0;
+            this.lengthLongestSuffix = 1;
+            this.lengthLongestPrefix = 1;
             this.data = 1;
         }
     }
@@ -72,9 +72,13 @@ public class SegmentTree {
                 node.firstLetter = leftNode.firstLetter;
                 node.lastLetter = rightNode.lastLetter;
                 if(!leftNode.lastLetter.equals(rightNode.firstLetter)) {
-                    node.data = leftNode.data + rightNode.data;
+                    node.data = leftNode.lengthLongestSuffix + rightNode.lengthLongestPrefix;
+                    node.lengthLongestPrefix = leftNode.lengthLongestPrefix + rightNode.lengthLongestPrefix;
+                    node.lengthLongestSuffix = rightNode.lengthLongestSuffix + leftNode.lengthLongestSuffix;
                 } else {
                     node.data = Math.max(leftNode.data, rightNode.data);
+                    node.lengthLongestSuffix = rightNode.lengthLongestSuffix;
+                    node.lengthLongestPrefix = leftNode.lengthLongestPrefix;
                 }
                 return node;
             }
